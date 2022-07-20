@@ -1,0 +1,175 @@
+openapi: 3.0.0
+info:
+  description: "API da semana do backend"
+  version: "1.0.0"
+  title: "Semana do Backend"
+servers:
+  - url: http://localhost:4466
+    description: Local server
+tags:
+- name: "user"
+  description: "Access to User"
+
+paths:
+  /user/{id}:
+    get:
+      tags:
+        - 'user'
+      summary: get user by id
+      parameters: 
+        - in: path 
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: ''
+          content:
+             application/json:
+              schema:  
+                $ref: '#/components/schemas/User'
+        '404':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                $ref: '#/components/schemas/BackendException'
+    delete:
+      tags:
+        - 'user'
+      summary: delete user by id
+      parameters: 
+        - in: path 
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                type: object 
+                properties: 
+                  message: 
+                    type: string 
+        '404':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                $ref: '#/components/schemas/BackendException'
+
+  /user:
+    get:
+      tags:
+        - 'user'
+      summary: get all user
+      responses:
+        '200':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                type: array 
+                items: 
+                  $ref: '#/components/schemas/User'
+        '404':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                $ref: '#/components/schemas/BackendException'
+    post:
+      tags:
+        - 'user'
+      summary: create new user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserCreate'
+      responses:
+        '200':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                type: array 
+                items: 
+                  $ref: '#/components/schemas/User'
+        '404':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                $ref: '#/components/schemas/BackendException'
+    put:
+      tags:
+        - 'user'
+      summary: Update user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                type: array 
+                items: 
+                  $ref: '#/components/schemas/User'
+        '404':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                $ref: '#/components/schemas/BackendException'
+
+
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+        role:
+          type: string
+          default: user
+          enum:
+            - "dev"
+            - "admin"
+            - "manager"
+    UserCreate:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        role:
+          type: string
+          default: user
+          enum:
+            - "dev"
+            - "admin"
+            - "manager"
+    BackendException:
+      type: object 
+      properties:
+        error: 
+          type: string
+
