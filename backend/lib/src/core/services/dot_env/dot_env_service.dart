@@ -17,7 +17,7 @@ class DotEnvService {
 
     for (var line in envText.split('\n')) {
       final lineBreak = line.split('=');
-      _map[lineBreak[0]] = lineBreak[1];
+      _map[lineBreak[0]] = lineBreak[1].trim();
     }
   }
 

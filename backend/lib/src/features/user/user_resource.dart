@@ -6,14 +6,16 @@ import 'package:backend/src/core/services/database/remote_database.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_modular/shelf_modular.dart';
 
+import '../auth/guard/auth_guard.dart';
+
 class UserResource extends Resource {
   @override
   List<Route> get routes => [
-        Route.get('/user', _getAllUser),
-        Route.get('/user/:id', _getUserByid),
+        Route.get('/user', _getAllUser, middlewares: [AuthGuard()]),
+        Route.get('/user/:id', _getUserByid, middlewares: [AuthGuard()]),
         Route.post('/user', _createUser),
-        Route.put('/user', _updateUser),
-        Route.delete('/user/:id', _deleteUser),
+        Route.put('/user', _updateUser, middlewares: [AuthGuard()]),
+        Route.delete('/user/:id', _deleteUser, middlewares: [AuthGuard()]),
       ];
 
   FutureOr<Response> _getAllUser(Injector injector) async {
