@@ -61,13 +61,12 @@ class UserResource extends Resource {
   FutureOr<Response> _updateUser(ModularArguments arguments, Injector injector) async {
     final userParams = (arguments.data as Map).cast<String, dynamic>();
 
-    final columns = userParams.keys
-        .where((key) => key != 'id' || key != 'password')
-        .map(
-          (key) => '$key=@$key',
-        )
+    final columns = userData.keys
+        .where((key) => key != 'id')
+        .where((key) => key != 'password')
+        .map((key) => '$key=@$key')
         .toList();
-
+      
     final query = 'UPDATE "User" SET ${columns.join(',')} WHERE id=@id RETURNING id, email, role, name;';
 
     final database = injector.get<RemoteDatabase>();
