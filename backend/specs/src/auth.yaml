@@ -1,0 +1,130 @@
+components:
+  schemas:
+    Tokenization:
+      type: object
+      properties:
+        access_token:
+          type: string
+        refresh_token:
+          type: string
+          
+  UpdatePassword: 
+    put:
+      tags:
+        - 'auth'
+      summary: update password
+      security: 
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password: 
+                  type: string
+                newPassword: 
+                  type: string
+      responses:
+        '200':
+          description: ''
+          content:
+             application/json:
+              schema:  
+                type: object 
+                properties:
+                  message:
+                    type: string
+        '403':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                $ref: '../swagger.yaml#/components/schemas/BackendException'
+        '404':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                $ref: '../swagger.yaml#/components/schemas/BackendException'
+  RefreshToken: 
+    get:
+      tags:
+        - 'auth'
+      summary: refresh bearer token
+      security: 
+        - bearerRefreshAuth: []
+      responses:
+        '200':
+          description: ''
+          content:
+             application/json:
+              schema:  
+                $ref: '#/components/schemas/Tokenization'
+        '403':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                $ref: '../swagger.yaml#/components/schemas/BackendException'
+        '404':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                $ref: '../swagger.yaml#/components/schemas/BackendException'
+  CheckToken: 
+    get:
+      tags:
+        - 'auth'
+      summary: check bearer token
+      security: 
+        - bearerAuth: []
+      responses:
+        '200':
+          description: ''
+          content:
+             application/json:
+              schema:  
+                type: object 
+                properties:
+                  message:
+                    type: string
+        '403':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                $ref: '../swagger.yaml#/components/schemas/BackendException'
+        '404':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                $ref: '../swagger.yaml#/components/schemas/BackendException'
+  Login: 
+    get:
+      tags:
+        - 'auth'
+      summary: login with credentials(email/password)
+      security: 
+        - basicAuth: []
+      responses:
+        '200':
+          description: ''
+          content:
+             application/json:
+              schema:  
+                $ref: '#/components/schemas/Tokenization'
+        '403':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                $ref: '../swagger.yaml#/components/schemas/BackendException'
+        '404':
+          description: ''
+          content:
+             application/json:
+              schema: 
+                $ref: '../swagger.yaml#/components/schemas/BackendException'
