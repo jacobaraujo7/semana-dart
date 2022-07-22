@@ -16,7 +16,14 @@ class DotEnvService {
     final envText = file.readAsStringSync();
 
     for (var line in envText.split('\n')) {
+      if (line.isEmpty) {
+        continue;
+      }
+
       final lineBreak = line.split('=');
+      if (lineBreak.length != 2) {
+        continue;
+      }
       _map[lineBreak[0]] = lineBreak[1].trim();
     }
   }

@@ -280,7 +280,7 @@ packages:
       name: shelf_modular
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0-dev.4"
+    version: "2.0.1"
   shelf_packages_handler:
     dependency: transitive
     description:
