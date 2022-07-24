@@ -6,7 +6,7 @@ info:
 servers:
   - url: http://localhost:4466
     description: Local server
-  - url: http://134.209.93.25:4466
+  - url: http://146.190.226.218:4466
     description: Remote server
 tags:
 - name: "auth"
