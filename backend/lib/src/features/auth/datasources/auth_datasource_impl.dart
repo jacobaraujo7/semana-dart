@@ -31,7 +31,7 @@ class AuthDatasourceImpl implements AuthDatasource {
       },
     );
 
-    return result.map((element) => element['User']).first![' role'];
+    return result.map((element) => element['User']).first!['role'];
   }
 
   @override
